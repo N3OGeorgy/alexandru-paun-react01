@@ -3,11 +3,10 @@ class AddToCartButton extends React.Component {
   state = {
     added: false,
     busy: false,
-  }
+  };
 
   onClick = () => {
-
-    if(this.state.busy === true) {
+    if (this.state.busy === true) {
       return;
     }
 
@@ -18,22 +17,39 @@ class AddToCartButton extends React.Component {
     setTimeout(() => {
       // request here
 
-      dispatchEvent(new CustomEvent('cart:add', {
-        detail: this.props.productId,
-      }),);
+      dispatchEvent(
+        new CustomEvent('cart:add', {
+          detail: this.props.productId,
+        }),
+      );
 
       this.setState({
         busy: false,
         added: !this.state.added,
-      })
+      });
     }, 1000);
-
-  }
+  };
 
   render() {
-    let {added,busy} = this.state;
-    let addedClassList = added === true ? 'fas fa-check-square text-success' : 'far fa-plus-square';
-    return <button type="button" className={`btn`} title={added === true ? 'Remove from Cart' : 'Add to Cart'}><i className={`${busy === true ? 'spinner-border spinner-border-sm' : addedClassList}`}  onClick={this.onClick}></i></button>
+    const { added, busy } = this.state;
+    const addedClassList =
+      added === true
+        ? 'fas fa-check-square text-success'
+        : 'far fa-plus-square';
+    return (
+      <button
+        type="button"
+        className={`btn`}
+        title={added === true ? 'Remove from Cart' : 'Add to Cart'}
+      >
+        <i
+          className={`${
+            busy === true ? 'spinner-border spinner-border-sm' : addedClassList
+          }`}
+          onClick={this.onClick}
+        ></i>
+      </button>
+    );
   }
 }
 
@@ -45,7 +61,7 @@ class AddToWishlistButton extends React.Component {
     this.state = {
       added: false,
       busy: false,
-    }
+    };
   }
 
   onClick = () => {
@@ -54,29 +70,47 @@ class AddToWishlistButton extends React.Component {
     });
 
     setTimeout(() => {
-
       this.setState({
         busy: false,
         added: !this.state.added,
-      })
+      });
     }, 1000);
-  }
+  };
 
   render() {
-    let {added,busy} = this.state;
-    let addedClassList = (added === true ? 'fas fa-heart' : 'far fa-heart');
-    return <button type="button" className={`btn`} onClick={this.onClick} title={added === true ? 'Remove from Wishlist' : 'Add to Wishlist'}><i className={`${busy === true ? 'spinner-border spinner-border-sm' : addedClassList}`} ></i></button>
+    const { added, busy } = this.state;
+    const addedClassList = added === true ? 'fas fa-heart' : 'far fa-heart';
+    return (
+      <button
+        type="button"
+        className={`btn`}
+        onClick={this.onClick}
+        title={added === true ? 'Remove from Wishlist' : 'Add to Wishlist'}
+      >
+        <i
+          className={`${
+            busy === true ? 'spinner-border spinner-border-sm' : addedClassList
+          }`}
+        ></i>
+      </button>
+    );
   }
 }
 
 class ProductControls extends React.Component {
   render() {
     const productId = this.props.productId;
-    return [<AddToWishlistButton key="a" productId={productId}></AddToWishlistButton>, <AddToCartButton key="b" productId={productId}></AddToCartButton>];
+    return [
+      <AddToWishlistButton key="a" productId={productId}></AddToWishlistButton>,
+      <AddToCartButton key="b" productId={productId}></AddToCartButton>,
+    ];
   }
 }
 
 const productTileControls = document.querySelectorAll('.product-tile-controls');
 productTileControls.forEach((productTileControl, index) => {
-  ReactDOM.render(<ProductControls key={index} productId={index}></ProductControls>, productTileControl);
-})
+  ReactDOM.render(
+    <ProductControls key={index} productId={index}></ProductControls>,
+    productTileControl,
+  );
+});
