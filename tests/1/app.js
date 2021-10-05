@@ -17,11 +17,12 @@ myData = [
 ];
 
 const cars = document.getElementById('cars');
-let fragment = new DocumentFragment();
+const fragment = new DocumentFragment();
 
 myData.forEach(function (car) {
   // cars.add(new Option(`${car.name} \\ ${car.details}`, car.id));
   fragment.append(new Option(`${car.name} \\ ${car.details}`, car.id));
+  console.log(fragment);
 });
 console.log(fragment);
-cars.append(fragment);
+// cars.append(fragment);
