@@ -83,3 +83,71 @@ const arr4 = person.skills.map((skill) => {
 });
 
 console.log(arr4);
+
+console.warn(
+  `Folosind metoda map pe arrayul skills, returneaza un array care contine cuvintele cu prima si ultima litera mari. `,
+);
+
+const arr5 = person.skills.map((skill) => {
+  let newSkill = skill
+    .replace(/^./, skill[0].toUpperCase())
+    .replace(/.$/, skill[skill.length - 1].toUpperCase());
+  return newSkill;
+});
+
+console.log(arr5);
+
+console.warn(
+  `Folosind metoda map pe arrayul skills, returneaza un array care contine cuvintele inversate (exemplu: lmth)`,
+);
+
+const arr6 = person.skills.map((skill) => {
+  return skill.split('').reverse().join('');
+});
+
+console.log(arr6);
+
+console.warn(
+  `Folosind metoda map pe arrayul friends, returneaza un array care sa contina propozitiile
+  “{friendName} are {age} ani.”`,
+);
+
+const arr7 = person.friends.map((friend) => {
+  return `${friend.name} ${friend.surname} are ${friend.age} ani.`;
+});
+
+console.log(arr7);
+
+console.warn(
+  `Folosind metoda map pe arrayul friends, returneaza un array care contine numele inversat al prietenilor pe fiecare pozitie (exemplu: Stevenson Steven)`,
+);
+
+const arr8 = person.friends.map((friend) => {
+  friend.name = friend.name.split('').reverse().join('');
+  friend.surname = friend.surname.split('').reverse().join('');
+  return friend;
+});
+
+console.log(arr8);
+
+console.warn(
+  `Folosind metoda map pe arrayul friends, returneaza un array care contine pe fiecare pozitie diferenta dintre lungimea totala al numelui complet (fara spatii) si varsta prietenului de pe iteratie`,
+);
+
+const arr9 = person.friends.map((friend) => {
+  return friend.name.length + friend.surname.length - friend.age;
+});
+
+console.log(arr9);
+
+console.warn(
+  `Folosind metoda map pe arrayul skills returneaza un array care contine diferenta dintre lungimea fiecarui skill si varsta prietenului`,
+);
+
+const arr10 = person.skills.map((skill) => {
+  return person.friends.map((friend) => {
+    return skill.length - friend.age;
+  });
+});
+
+console.log(arr10);

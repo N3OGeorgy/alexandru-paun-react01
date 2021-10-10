@@ -64,3 +64,24 @@ Object.values(person.friends).forEach(({ name, age }) => {
     )} ani.`,
   );
 });
+
+console.warn(
+  `Prin aceeasi metoda, afiseaza o lista cu numele complet al prietenilor.`,
+);
+
+Object.values(person.friends).forEach(({ name, surname }) => {
+  console.log(`<li>${name} ${surname}</li>`);
+});
+
+console.warn(
+  `In mod similar, afiseaza propozitia  “Larry are xx ani. Steven are …”`,
+);
+
+const message6 = Object.values(person.friends).reduce(
+  (message, { name, age }) => {
+    return `${message}${name} are ${age} ani.`;
+  },
+  '',
+);
+
+console.log(message6);
