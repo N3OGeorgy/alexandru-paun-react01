@@ -36,7 +36,7 @@ class Search extends Component {
 
   render() {
     return <form className="d-inline-flex align-self-center" onSubmit={this.onSubmit}>
-      <input className="form-control me-2 align-self-center" type="text" name="q" placeholder="Search" onChange={this.onInputChange} value={this.state.searchTerm} disabled={this.state.busy} required></input>
+      <input className="form-control me-2 align-self-center" type="text" name="q" placeholder={this.props.placeholder} onChange={this.onInputChange} value={this.state.searchTerm} disabled={this.state.busy} required></input>
 
       <button className="btn btn-outline-warning" type="submit" title="Search" disabled={this.state.busy}>Search</button>
     </form>
