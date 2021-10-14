@@ -1,4 +1,5 @@
 import {Component} from "react";
+import MetaImage from "./MetaImage";
 
 class Film extends Component {
   render() {
@@ -13,7 +14,7 @@ class Film extends Component {
       </div>
 
       <div className="col-12 col-md-4 text-center">
-        Insert image here
+      <MetaImage term={this.props.film.title}></MetaImage>
       </div>
 
       <div className="col-12 col-md-8 mt-4 mt-md-0">
