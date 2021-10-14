@@ -36,7 +36,7 @@ export const MetaImage = ({term}) => {
       });
     }, random);
 
-  }, []);
+  }, [term]);
   return <h1>{busy === true ? '...loading' : <img className="img-fluid" src={imageUrl} alt={term}></img>}</h1>;
 }
 
