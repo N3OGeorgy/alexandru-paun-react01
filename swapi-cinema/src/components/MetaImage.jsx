@@ -10,7 +10,7 @@ export const MetaImage = ({term}) => {
 
   useEffect(() => {
     const refinedSearchTerm = encodeURIComponent(`star wars ${term}`);
-    const random = Math.floor(Math.random() * 2000) + 1;
+    const random = Math.floor(Math.random() * 2000) + 2;
 
     setTimeout(() => {
 
