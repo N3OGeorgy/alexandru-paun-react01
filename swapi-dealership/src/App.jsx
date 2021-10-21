@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
+import FooterNav from './components/FooterNav';
 import Screen from './components/Screen';
-import { AppContest, appState, appStateReducer } from './contexts/AppContext';
+import { AppContext, appState, appStateReducer } from './contexts/AppContext';
 import Search from './legacy/Search';
 
 const App = () => {
@@ -13,7 +14,7 @@ const App = () => {
   const { currentScreen } = state;
 
   return (
-    <AppContest.Provider value={contextValue}>
+    <AppContext.Provider value={contextValue}>
       <header className="navbar-dark fixed-top bg-dark border-bottom border-warning">
         <nav className="container d-flex justify-content-between">
           <h1 className="display-6 text-warning">Swapi Vehicles</h1>
@@ -33,8 +34,8 @@ const App = () => {
         <Screen screen={currentScreen}></Screen>
       </main>
 
-      <footer className="container mb-4">FOoter</footer>
-    </AppContest.Provider>
+      <footer className="container mb-4"><FooterNav></FooterNav></footer>
+    </AppContext.Provider>
   );
 };
 

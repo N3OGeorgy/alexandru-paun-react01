@@ -1,15 +1,17 @@
 import { createContext } from 'react';
 
-export const AppContest = createContext();
+export const AppContext = createContext();
 
 export const appState = {
   currentScreen: 'home',
   selected: null,
+  searchResults: [],
+  cart: [],
 };
 
 export const appStateReducer = (appState, { type, payload }) => {
   if (type === 'setScreen') {
-    // payloads comits to being something like 'home', 'products' etc.
+    // payload commits to being something like 'home' 'products' etc...
     return {
       ...appState,
       currentScreen: payload,
@@ -20,6 +22,20 @@ export const appStateReducer = (appState, { type, payload }) => {
     return {
       ...appState,
       selected: payload,
+    };
+  }
+
+  if (type === 'setSearchResults') {
+    return {
+      ...appState,
+      searchResults: payload,
+    };
+  }
+
+  if (type === 'addToCart') {
+    return {
+      ...appState,
+      cart: [...appState.cart, payload],
     };
   }
 

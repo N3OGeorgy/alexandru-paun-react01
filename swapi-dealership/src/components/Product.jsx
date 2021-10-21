@@ -1,17 +1,39 @@
-import {useContext} from "react";
-import {AppContest} from "../contexts/AppContext";
+import { useContext, useMemo } from 'react';
+import { AppContext } from '../contexts/AppContext';
 import MetaImage from "../legacy/MetaImage";
 import ProductDetails from "./ProductDetails";
 
 export const Product = () => {
-  const { dispatch, state } = useContext(AppContest);
-  const { selected: product} = state;
+  const { dispatch, state } = useContext(AppContext);
+  const { selected: product, cart} = state;
+
+  // const productInCart = cart.find((cartItem) => {
+  //   return cartItem.name === product.name;
+  // }) ? true : false;
+
+  const productInCart = useMemo(() => {
+    return cart.find((cartItem) => {
+      return cartItem.name === product.name;
+    });
+  }, [cart, product.name])
 
   const navigateHome = () => {
     dispatch({
         type: 'setScreen',
         payload: 'home',
     })
+
+    dispatch({
+      type: 'setSelected',
+      payload: null,
+    })
+  };
+
+  const addToCart = () => {
+    dispatch({
+      type: 'addToCart',
+      payload: product,
+    });
   };
 
   return <section className="row">
@@ -36,7 +58,7 @@ export const Product = () => {
         Home
       </buttton>
 
-      <button className="btn btn-warning btn-xl flex-grow-1" title={`Add ${product.name} to cart`} type="button">Add to cart</button>
+      <button className="btn btn-warning btn-xl flex-grow-1" title={`Add ${product.name} to cart`} type="button" onClick={addToCart}>{productInCart ? `Remove from Cart` : `Add to cart (${product.cost_in_credits})`}</button>
     </div>
     </section>;
 }
