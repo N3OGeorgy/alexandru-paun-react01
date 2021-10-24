@@ -8,7 +8,7 @@ class Member extends Component {
         <h2>{this.props.film.name}</h2>
 
         <button className="btn btn-outline-light align-self-center" title="back" type="button" onClick={() => {
-          this.props.deselectFilm();
+          this.props.deselectMember();
         }}>Back</button>
       </div>
 
@@ -33,9 +33,6 @@ class Member extends Component {
                     <button className="btn btn-sm btn-light" type="button" title={`View details`} onClick={() => {
                       this.props.viewFilm(film);
                     }}>Details</button>
-                    <button className="btn btn-sm btn-warning" type="button" title={`Buy tickets`} onClick={() => {
-                        this.props.purchaseFilm(film);
-                      }}>Buy Tickets</button>
                     </td>
                   </tr>
                 )

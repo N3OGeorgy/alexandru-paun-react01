@@ -1,6 +1,7 @@
 import { Component, Fragment } from "react";
 import Member from "./components/Member";
 import Films from "./components/Films";
+import Film from "./components/Film";
 import PurchaseFilm from "./components/PurchaseFilm";
 import Search from "./components/Search";
 
@@ -12,7 +13,10 @@ class App extends Component {
     films: [],
     errorMessage: '',
     hasSearchResults: false,
-    selectedFilm: null,
+    selectedMember: null,
+    filmUrl: null,
+    viewFilmDetails: false,
+    puchasingFilm: '',
     purchasing: false
   };
 
@@ -50,18 +54,18 @@ class App extends Component {
 
   renderFilms(){
     return <>
-    <h2>Available films</h2>
+    <h2>Available persons</h2>
     <Films films={this.state.films}
 
     selectFilm={(film) => {
       this.setState({
-        selectedFilm: film,
+        selectedMember: film,
       });
     }}
 
     purchaseFilm={(film) => {
       this.setState({
-        selectedFilm: film,
+        selectedMember: film,
         purchasing: true
       })
     }}></Films>
@@ -72,23 +76,19 @@ class App extends Component {
   }
 
   renderFilm() {
-    return <Member film={this.state.selectedFilm}
+    return <Member film={this.state.selectedMember}
 
     viewFilm={(film) => {
-      console.log(film);
-    }}
-
-    deselectFilm={ () => {
       this.setState({
-        selectedFilm: null,
+        filmUrl: film,
+        viewFilmDetails: true,
       });
     }}
 
-    purchaseFilm={(film) => {
-      console.log(film);
+    deselectMember={ () => {
       this.setState({
-        purchasing: true,
-      })
+        selectedMember: null,
+      });
     }}
     ></Member>
   }
@@ -103,14 +103,34 @@ class App extends Component {
     }
 
     if(this.state.purchasing === true) {
-      return <PurchaseFilm film={this.state.selectedFilm} cancelPurchase={() => {
+      return <PurchaseFilm film={this.state.puchasingFilm}
+
+      cancelPurchase={() => {
         this.setState({
           purchasing: false,
           selectFilm: null
         })
-      }}></PurchaseFilm>
+      }}
+      ></PurchaseFilm>
     }
-    return this.state.selectedFilm !== null ? this.renderFilm() : this.renderFilms();
+    if(this.state.viewFilmDetails === true) {
+      return <Film filmUrl={this.state.filmUrl}
+        deselectFilm={ () => {
+          this.setState({
+            filmUrl: null,
+            viewFilmDetails: false
+          });
+        }}
+
+        purchaseFilm={(film) => {
+          this.setState({
+            puchasingFilm: film,
+            purchasing: true,
+          })
+        }}
+        ></Film>
+    }
+    return this.state.selectedMember !== null ? this.renderFilm() : this.renderFilms();
   }
 
   render() {
@@ -123,7 +143,7 @@ class App extends Component {
             this.setState({
               films,
               hasSearchResults: true,
-              selectedFilm: null,
+              selectedMember: null,
             });
           }} placeholder="Search a Person"></Search>
         </nav>
