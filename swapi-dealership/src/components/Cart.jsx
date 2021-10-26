@@ -13,6 +13,13 @@ export const Cart = () => {
     })
   }
 
+  if(cart.length <= 0) {
+    dispatch({
+      type: 'setScreen',
+      payload: 'home'
+    })
+  }
+
   return <section className="row">
     <header className="col-12">
       <h2>Cart</h2>

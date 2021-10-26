@@ -1,6 +1,7 @@
 import { useContext, useMemo } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import MetaImage from "../legacy/MetaImage";
+import Dialog from './Dialog';
 import ProductDetails from "./ProductDetails";
 
 export const Product = () => {
@@ -12,9 +13,11 @@ export const Product = () => {
   // }) ? true : false;
 
   const productInCart = useMemo(() => {
-    return cart.find((cartItem) => {
-      return cartItem.name === product.name;
-    });
+    return Boolean(
+      cart.find((cartItem) => {
+        return cartItem.name === product.name;
+      })
+    );
   }, [cart, product.name])
 
   const navigateHome = () => {
@@ -35,6 +38,13 @@ export const Product = () => {
       payload: product,
     });
   };
+
+  const removeToCart = () => {
+    dispatch({
+      type: 'removeFromCart',
+      payload: product
+    })
+  }
 
   return <section className="row">
     <div className="col-12 mb-4 d-flex justify-content-between">
@@ -58,8 +68,14 @@ export const Product = () => {
         Home
       </buttton>
 
-      <button className="btn btn-warning btn-xl flex-grow-1" title={`Add ${product.name} to cart`} type="button" onClick={addToCart}>{productInCart ? `Remove from Cart` : `Add to cart (${product.cost_in_credits})`}</button>
+      <button className="btn btn-warning btn-xl flex-grow-1" title={`Add ${product.name} to cart`} type="button"
+      onClick={() => {
+        productInCart ? removeToCart() : addToCart();
+      }}
+      >{productInCart ? `Remove from Cart` : `Add to cart (${product.cost_in_credits})`}</button>
     </div>
+
+    <Dialog show={true}></Dialog>
     </section>;
 }
 

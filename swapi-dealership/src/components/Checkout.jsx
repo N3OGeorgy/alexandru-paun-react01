@@ -9,6 +9,22 @@ export const Checkout = () => {
 
   const placeOrder = (formData) => {
     console.log(formData);
+    dispatch({
+      type: 'setOrder',
+      payload: {
+        address: formData,
+        items: [...cart],
+      }
+    });
+
+    dispatch({
+      type: 'setScreen',
+      payload: 'orderConfirmation'
+    });
+
+    dispatch({
+      type: 'emptyCart',
+    });
   }
 
   return (
