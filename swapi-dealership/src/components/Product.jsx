@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import MetaImage from "../legacy/MetaImage";
 import Dialog from './Dialog';
@@ -19,6 +19,7 @@ export const Product = () => {
       })
     );
   }, [cart, product.name])
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const navigateHome = () => {
     dispatch({
@@ -32,11 +33,20 @@ export const Product = () => {
     })
   };
 
+  const navigateToCart = () => {
+    dispatch({
+      type: 'setScreen',
+      payload: 'cart'
+    })
+  }
+
   const addToCart = () => {
     dispatch({
       type: 'addToCart',
       payload: product,
     });
+
+    setIsDialogOpen(true);
   };
 
   const removeToCart = () => {
@@ -75,7 +85,23 @@ export const Product = () => {
       >{productInCart ? `Remove from Cart` : `Add to cart (${product.cost_in_credits})`}</button>
     </div>
 
-    <Dialog show={true}></Dialog>
+    <Dialog show={isDialogOpen} onClose={() => {
+      setIsDialogOpen(false);
+    }}>
+      <div className="alert alert-success">
+        {product.name} ({product.cost_in_credits}) added to cart.
+      </div>
+      <div className="d-flex justify-content-between mt-6">
+        <button className="btn btn-secondary btn-sm" type="button" title="See Cart" onClick={navigateToCart}>See Cart</button>
+        <button className="btn btn-secondary btn-sm" type="button" title="Continue Shopping" onClick={navigateHome}>Continue Shopping</button>
+      </div>
+
+      <div className="text-end mt-2">
+        <button className="btn btn-danger btn-xl" type="button" title="CLOSE" onClick={() => {
+          setIsDialogOpen(false)
+        }}>Close</button>
+      </div>
+    </Dialog>
     </section>;
 }
 
