@@ -1,0 +1,32 @@
+import {useDispatch, useSelector} from "react-redux";
+import {clickClicker, decrementClicker} from "./actions/creators/ui";
+import {Footer, Header} from "./components/common";
+
+export const App = () => {
+  const clicker = useSelector((state) => {
+    const { ui } = state;
+    return ui.clicker;
+  })
+
+  const dispatch = useDispatch();
+
+  return (
+      <>
+      <Header></Header>
+      <main>
+        <div>value is : {clicker}</div>
+        <button onClick={() => {
+          dispatch(decrementClicker(12))
+
+        }} title="meh">Decrement</button>
+        <button onClick={() => {
+          dispatch(clickClicker(12))
+
+        }} title="meh">Test</button>
+      </main>
+      <Footer></Footer>
+      </>
+  );
+}
+
+export default App;
