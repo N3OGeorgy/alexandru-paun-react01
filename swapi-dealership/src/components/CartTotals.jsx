@@ -1,10 +1,16 @@
+import ProductCartButton from './ProductCartButton';
+
 export const CartTotals = ({cart}) => {
+
   const renderTableRows = () => {
     return cart.map((cartItem) => {
+      console.log(cartItem);
       const {name,cost_in_credits} = cartItem;
 
       return <tr key={name}>
-        <td>{name}</td>
+        <td>
+          <ProductCartButton product={cartItem}></ProductCartButton>
+        </td>
         <td>{cost_in_credits}</td>
       </tr>
     });

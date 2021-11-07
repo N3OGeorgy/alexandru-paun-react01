@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AppContext } from './../contexts/AppContext';
+import Logo from './Logo';
 
 export const FooterNav = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -42,7 +43,7 @@ export const FooterNav = () => {
           type="button"
           onClick={navigateHome}
         >
-          Home
+          <Logo title={`Home`}></Logo>
         </button>
       </li>
 

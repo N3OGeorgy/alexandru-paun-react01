@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import Logo from './components/Logo';
 import FooterNav from './components/FooterNav';
 import Screen from './components/Screen';
 import { AppContext, appState, appStateReducer } from './contexts/AppContext';
@@ -17,7 +18,7 @@ const App = () => {
     <AppContext.Provider value={contextValue}>
       <header className="navbar-dark fixed-top bg-dark border-bottom border-warning">
         <nav className="container d-flex justify-content-between">
-          <h1 className="display-6 text-warning">Swapi Vehicles</h1>
+          <h1 className="display-6 text-warning"><Logo></Logo></h1>
 
           <Search className="d-inline-flex align-self-center"></Search>
         </nav>

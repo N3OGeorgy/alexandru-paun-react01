@@ -4,7 +4,16 @@ import { AppContext } from '../contexts/AppContext';
 
 export const ProductTile = ({product}) => {
   const { name, model } = product;
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+
+  const productIsInCart = state.cart.reduce((productIsInCart, cartItem) => {
+    if(cartItem.name === name){
+      productIsInCart = true;
+    }
+    return productIsInCart;
+  }, false);
+
+
   const navigateToPdp = () => {
     dispatch({
       type: 'setScreen',
@@ -27,7 +36,7 @@ export const ProductTile = ({product}) => {
     </header>
 
     <section className="mt-2 text-center">
-      <button className="btn btn-warning" title={`Details for ${name}`} type="button" onClick={navigateToPdp}>Details</button>
+      <button className="btn btn-warning" title={`Details for ${name}`} type="button" onClick={navigateToPdp}> {productIsInCart ? <i class="fas fa-cart-plus text-white"></i> : <i class="fas fa-cart-plus text-secondary"></i>} Details</button>
     </section>
   </article>
 }
