@@ -1,14 +1,37 @@
 import { Link, NavLink } from 'react-router-dom';
 import { SiLetterboxd } from 'react-icons/si';
+import { useDispatch } from 'react-redux';
+import Button from '../ui/Button';
+import {requestSignIn, requestSignOut} from '../../actions/creators/auth';
+import { FaUserAlt } from 'react-icons/fa';
+import { CgSpinnerTwo } from 'react-icons/cg';
+import { useAuth } from './../../hooks';
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const { authenticated, established } = useAuth();
+
   const renderUserControls = () => {
-    const authenticated = false;
+    if(!established) {
+      return <CgSpinnerTwo className="animate-spin"></CgSpinnerTwo>
+    }
 
     if(authenticated) {
-      return 'logged in'
+      return <>
+        <NavLink to="/profile" title="profile">
+          <Button element="span" className="inline-flex h-full items-center">
+            <FaUserAlt></FaUserAlt>
+          </Button>
+        </NavLink>
+
+        <Button skin="primaryInverted" type="button" title="log out" className="ml-2" onClick={() => {
+          dispatch(requestSignOut());
+        }}>Log Out</Button>
+      </>;
     } else {
-      return 'not logged';
+      return <Button type="button" title="login" onClick={() => {
+        dispatch(requestSignIn());
+      }}>Log in</Button>;
     }
   };
 
@@ -23,7 +46,7 @@ export const Header = () => {
         </h1>
       </header>
 
-      {renderUserControls()}
+      <div>{renderUserControls()}</div>
     </div>
   </header>;
 }
