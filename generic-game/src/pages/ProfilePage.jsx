@@ -1,18 +1,34 @@
 import {useEffect} from "react";
 import {useHistory} from "react-router-dom";
+import { ProfileForm } from "../components/profile";
 import {useAuth} from "../hooks";
 
 export const ProfilePage = () => {
   const history = useHistory();
-  const { authenticated } = useAuth();
+  const { authenticated, established } = useAuth();
 
   useEffect(() => {
-    if(!authenticated) {
+    if(!authenticated && established) {
       history.push('/');
     }
-  }, [authenticated, history]);
+  }, [authenticated, history, established]);
 
-  return 'Profile';
+  return <div className="container mx-auto p-4">
+    <header>
+      <h1>asd</h1>
+    </header>
+
+    <section className="flex justify-between flex-wrap mt-8">
+      <div className="w-full md:w-8/12">
+        {/* create user profile component, populate it with info from store*/}
+      </div>
+
+      <section className="mt-4 md:w-1/4 md:mt-12 mx-auto">
+        <ProfileForm></ProfileForm>
+      </section>
+
+    </section>
+  </div>;
 }
 
 export default ProfilePage;

@@ -1,6 +1,11 @@
 import { AUTH_LOGIN, AUTH_LOGOUT } from '../../types/auth';
 import { initializeGoogleAuth } from '../../../api/googleAuth';
-import { getUserStats, postUserStats } from '../../types/profile';
+import {
+  getUserProfile,
+  getUserStats,
+  postUserStats,
+  postUserProfile,
+} from '../../types/profile';
 
 export const login = (user) => {
   return async (dispatch) => {
@@ -8,8 +13,20 @@ export const login = (user) => {
 
     try {
       await dispatch(getUserStats(id));
-    } catch (error) {
-      await dispatch(postUserStats(id));
+    } catch (response) {
+      const { status: httpStatus } = response;
+      if (httpStatus === 404) {
+        await dispatch(postUserStats(id));
+      }
+    }
+
+    // read profile
+    // determine if user has a profile
+    // create profile
+    try {
+      await dispatch(getUserProfile(id));
+    } catch (response) {
+      await dispatch(postUserProfile(id));
     }
 
     dispatch(setLogin(user));

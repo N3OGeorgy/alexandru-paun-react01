@@ -24,10 +24,30 @@ export const readUser = async (userId) => {
 
   const { data } = await usersApi.get(endpoint);
 
-  if (data) {
-    return data;
+  if (data.stats) {
+    return data.stats;
   }
 
+  return undefined;
+};
+
+// createProfile
+export const createProfile = async (userId, colors) => {
+  const payload = {
+    id: userId,
+    creature: colors,
+  };
+
+  return await usersApi.post(`/profiles/`, payload);
+};
+
+export const readProfile = async (userId) => {
+  const { data } = await usersApi.get(`/profiles/${userId}`);
+
+  // return data?.creature;
+  if (data.creature) {
+    return data.creature;
+  }
   return undefined;
 };
 
