@@ -9,7 +9,7 @@ import { useAuth } from './../../hooks';
 
 export const Header = () => {
   const dispatch = useDispatch();
-  const { authenticated, established } = useAuth();
+  const { user, authenticated, established } = useAuth();
 
   const renderUserControls = () => {
     if(!established) {
@@ -18,7 +18,7 @@ export const Header = () => {
 
     if(authenticated) {
       return <>
-        <NavLink to="/profile" title="profile">
+        <NavLink to="/profile" title={`Hello ${user.lastName}, go to profile.`}>
           <Button element="span" className="inline-flex h-full items-center">
             <FaUserAlt></FaUserAlt>
           </Button>

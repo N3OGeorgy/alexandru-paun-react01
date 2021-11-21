@@ -3,7 +3,7 @@ import {Switch, BrowserRouter, Route} from 'react-router-dom';
 import {clickClicker, decrementClicker} from "./actions/creators/ui";
 import {initializeGoogleAuth} from "./api/googleAuth";
 import {Footer, Header} from "./components/common";
-import {HomePage, NotFoundPage, ProfilePage, RankPage} from "./pages";
+import {HomePage, NotFoundPage, ProfilePage, RankPage, PlayPage} from "./pages";
 
 // async
 initializeGoogleAuth();
@@ -34,6 +34,7 @@ export const App = () => {
           <Route exact path="/" component={HomePage}></Route>
           <Route exact path="/profile" component={ProfilePage}></Route>
           <Route exact path="/ranks" component={RankPage}></Route>
+          <Route exact path="/play" component={PlayPage}></Route>
           <Route component={NotFoundPage}></Route>
         </Switch>
       </main>
