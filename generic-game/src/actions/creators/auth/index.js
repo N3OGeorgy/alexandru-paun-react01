@@ -5,7 +5,7 @@ import {
   getUserStats,
   postUserStats,
   postUserProfile,
-} from '../../types/profile';
+} from '../../creators/profile';
 
 export const login = (user) => {
   return async (dispatch) => {

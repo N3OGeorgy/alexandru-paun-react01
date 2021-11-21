@@ -1,4 +1,4 @@
-import { PROFILE_SET_STATS } from '../actions/creators/profile';
+import { PROFILE_SET_STATS } from '../actions/types/profile';
 
 const initialState = {
   stats: {
