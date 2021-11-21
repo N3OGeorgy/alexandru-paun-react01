@@ -29,7 +29,6 @@ export const setUserStats = (stats) => {
   };
 };
 
-// postUserStats
 export const postUserStats = (userId) => {
   return async () => {
     await createUser(userId);

@@ -6,10 +6,13 @@ import {requestSignIn, requestSignOut} from '../../actions/creators/auth';
 import { FaUserAlt } from 'react-icons/fa';
 import { CgSpinnerTwo } from 'react-icons/cg';
 import { useAuth } from './../../hooks';
+import { useUi } from './../../hooks';
+import { NetworkAlert } from '../ui';
 
 export const Header = () => {
   const dispatch = useDispatch();
   const { user, authenticated, established } = useAuth();
+  const { networkErrorMessage} = useUi();
 
   const renderUserControls = () => {
     if(!established) {
@@ -35,7 +38,17 @@ export const Header = () => {
     }
   };
 
+  const renderNetworkAlert = () => {
+    if(networkErrorMessage.length > 0){
+      return <>
+        <NetworkAlert bodyMessage={networkErrorMessage}></NetworkAlert>
+        <Button type="button" title="reload" className="w-full bg-red-500 text-white active:bg-gray-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => { window.location.reload()
+      }}>Reload Page</Button></>;
+    }
+  }
+
   return <header className="shadow p-4">
+    {renderNetworkAlert()}
     <div className="container mx-auto flex justify-between items-center">
       <header>
         <h1 className="uppercase text-lg font-bold">

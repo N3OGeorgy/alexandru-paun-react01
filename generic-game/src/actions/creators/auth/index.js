@@ -6,6 +6,7 @@ import {
   postUserStats,
   postUserProfile,
 } from '../../creators/profile';
+import { setNetworkError } from '../ui';
 
 export const login = (user) => {
   return async (dispatch) => {
@@ -26,7 +27,15 @@ export const login = (user) => {
     try {
       await dispatch(getUserProfile(id));
     } catch (response) {
-      await dispatch(postUserProfile(id));
+      const { status: httpStatus } = response;
+      if (httpStatus === 404) {
+        try {
+          await dispatch(postUserProfile(id));
+          await dispatch(postUserProfile(id));
+        } catch (error) {
+          dispatch(setNetworkError(error.message));
+        }
+      }
     }
 
     dispatch(setLogin(user));
