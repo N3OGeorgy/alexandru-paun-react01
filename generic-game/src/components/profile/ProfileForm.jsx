@@ -1,6 +1,5 @@
 import {useSelector} from "react-redux";
 import Button from "../ui/Button";
-const onSubmit = () => {}
 export const ProfileForm = () => {
   const {mainColor, secondaryColor, eyeColor} = useSelector((state) => {
     const { profile } = state;

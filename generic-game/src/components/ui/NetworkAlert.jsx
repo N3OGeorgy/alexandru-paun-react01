@@ -1,5 +1,5 @@
 export const NetworkAlert = (props) => {
-  const { title = 'Danger', bodyMessage = 'Unknown Network Alert', ...otherProps } = props;
+  const { title = 'Danger', bodyMessage = 'Unknown Network Alert' } = props;
 
   return <div role="alert" class="mt-2 mb-2">
   <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">

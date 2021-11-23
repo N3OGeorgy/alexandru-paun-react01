@@ -43,7 +43,8 @@ export const Header = () => {
       return <>
         <NetworkAlert bodyMessage={networkErrorMessage}></NetworkAlert>
         <Button type="button" title="reload" className="w-full bg-red-500 text-white active:bg-gray-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" onClick={() => { window.location.reload()
-      }}>Reload Page</Button></>;
+      }}>Reload Page</Button>
+      </>;
     }
   }
 
