@@ -23,9 +23,11 @@ export const ProfilePage = () => {
         {/* create user profile component, populate it with info from store*/}
       </div>
 
-      <section className="mt-4 md:w-1/4 md:mt-12 mx-auto">
+      {
+        established ? (      <section className="mt-4 md:w-1/4 md:mt-12 mx-auto">
         <ProfileForm></ProfileForm>
-      </section>
+      </section>) : ('... some spinner')
+      }
 
     </section>
   </div>;

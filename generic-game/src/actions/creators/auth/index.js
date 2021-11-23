@@ -31,7 +31,6 @@ export const login = (user) => {
       if (httpStatus === 404) {
         try {
           await dispatch(postUserProfile(id));
-          await dispatch(postUserProfile(id));
         } catch (error) {
           dispatch(setNetworkError(error.message));
         }

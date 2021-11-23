@@ -3,8 +3,13 @@ import {
   createUser,
   readProfile,
   readUser,
+  updateProfile,
 } from '../../../api/users';
-import { PROFILE_SET_STATS } from '../../types/profile';
+import {
+  PROFILE_SET_COLOR,
+  PROFILE_SET_COLORS,
+  PROFILE_SET_STATS,
+} from '../../types/profile';
 
 // getUserStats
 export const getUserStats = (userId) => {
@@ -36,11 +41,14 @@ export const postUserStats = (userId) => {
 };
 
 export const getUserProfile = (userId) => {
-  return async () => {
+  return async (dispatch) => {
     let creatureColors = {};
 
     try {
       creatureColors = await readProfile(userId);
+
+      dispatch(setCreatureColors(creatureColors));
+
       return creatureColors;
     } catch (error) {
       const response = error.response;
@@ -54,5 +62,28 @@ export const postUserProfile = (userId) => {
     const { profile } = getState();
 
     await createProfile(userId, profile.creature);
+  };
+};
+
+export const setCreatureColor = (targetProperty, color) => {
+  return {
+    type: PROFILE_SET_COLOR,
+    payload: {
+      targetProperty,
+      color,
+    },
+  };
+};
+
+export const patchUserProfile = (userId, colors) => {
+  return async () => {
+    await updateProfile(userId, colors);
+  };
+};
+
+export const setCreatureColors = (creatureColors) => {
+  return {
+    type: PROFILE_SET_COLORS,
+    payload: creatureColors,
   };
 };
