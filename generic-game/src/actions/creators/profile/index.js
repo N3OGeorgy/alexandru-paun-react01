@@ -1,9 +1,11 @@
 import {
   createProfile,
   createUser,
+  deleteUser,
   readProfile,
   readUser,
   updateProfile,
+  deleteProfile,
 } from '../../../api/users';
 import {
   PROFILE_SET_COLOR,
@@ -37,6 +39,12 @@ export const setUserStats = (stats) => {
 export const postUserStats = (userId) => {
   return async () => {
     await createUser(userId);
+  };
+};
+
+export const deleteUserStats = (userId) => {
+  return async () => {
+    await deleteUser(userId);
   };
 };
 
@@ -85,5 +93,11 @@ export const setCreatureColors = (creatureColors) => {
   return {
     type: PROFILE_SET_COLORS,
     payload: creatureColors,
+  };
+};
+
+export const deleteUserProfile = (userId) => {
+  return async () => {
+    await deleteProfile(userId);
   };
 };

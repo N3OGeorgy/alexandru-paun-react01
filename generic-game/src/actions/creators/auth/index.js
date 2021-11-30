@@ -3,8 +3,12 @@ import { initializeGoogleAuth } from '../../../api/googleAuth';
 import {
   getUserProfile,
   getUserStats,
+  setCreatureColors,
+  setUserStats,
+  deleteUserStats,
   postUserStats,
   postUserProfile,
+  deleteUserProfile,
 } from '../../creators/profile';
 import { setNetworkError } from '../ui';
 
@@ -30,6 +34,7 @@ export const login = (user) => {
       const { status: httpStatus } = response;
       if (httpStatus === 404) {
         try {
+          await dispatch(postUserProfile(id));
           await dispatch(postUserProfile(id));
         } catch (error) {
           dispatch(setNetworkError(error.message));
@@ -66,6 +71,26 @@ export const requestSignOut = () => {
   return async () => {
     initializeGoogleAuth().then((GoogleAuth) => {
       GoogleAuth.signOut();
+    });
+  };
+};
+
+export const requestDeleteUserStats = (user) => {
+  return async (dispatch) => {
+    const { id } = user;
+    await dispatch(deleteUserStats(id)).then(() => {
+      dispatch(requestSignOut());
+    });
+  };
+};
+
+export const requestDeleteUserProfile = (user) => {
+  return async (dispatch) => {
+    const { id } = user;
+    await dispatch(deleteUserProfile(id)).then(() => {
+      dispatch(setUserStats({}));
+      dispatch(setCreatureColors({}));
+      dispatch(requestSignOut());
     });
   };
 };

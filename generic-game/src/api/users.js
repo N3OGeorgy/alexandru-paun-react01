@@ -31,6 +31,12 @@ export const readUser = async (userId) => {
   return undefined;
 };
 
+export const deleteUser = async (userId) => {
+  const endpoint = `/users/${userId}`;
+
+  return await usersApi.delete(endpoint);
+};
+
 // createProfile
 export const createProfile = async (userId, colors) => {
   const payload = {
@@ -57,6 +63,12 @@ export const updateProfile = async (userId, colors) => {
   };
 
   return await usersApi.patch(`/profiles/${userId}`, payload);
+};
+
+export const deleteProfile = async (userId) => {
+  const endpoint = `/profiles/${userId}`;
+
+  return await usersApi.delete(endpoint);
 };
 
 export default usersApi;
