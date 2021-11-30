@@ -2,6 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {patchUserProfile, setCreatureColor} from "../../actions/creators/profile";
 import {useProfileColors} from "../../hooks";
 import Button from "../ui/Button";
+import { useDebouncedCallback } from 'use-debounce';
+
+
 export const ProfileForm = () => {
   const {mainColor, secondaryColor, eyeColor} = useProfileColors();
 
@@ -28,14 +31,26 @@ export const ProfileForm = () => {
     dispatch(setCreatureColor(targetProperty, colorValue));
   }
 
+  const debouncedColorPickerChange = useDebouncedCallback(
+    (event) => {
+      const element = event.target;
+      const targetProperty = element.name;
+      const colorValue = element.value;
+
+      dispatch(setCreatureColor(targetProperty, colorValue));
+    },
+    // delay in ms
+    1000
+  );
+
   return <form onSubmit={onSubmit}>
     <div className="mb-4 flex justify-between">
       <label htmlFor="mainColor">Main Color</label>
-      <input type="color" name="mainColor" id="mainColor" value={mainColor} onChange={onColorPickerChange}/>
+      <input type="color" name="mainColor" id="mainColor" defaultValue={mainColor} onChange={(event) => debouncedColorPickerChange(event)}/>
     </div>
     <div className="mb-4 flex justify-between">
       <label htmlFor="secondaryColor">Secondary Color</label>
-      <input type="color" name="secondaryColor" id="secondaryColor" value={secondaryColor} onChange={onColorPickerChange}/>
+      <input type="color" name="secondaryColor" id="secondaryColor" defaultValue={secondaryColor} onChange={(event) => debouncedColorPickerChange(event)}/>
     </div>
     <div className="mb-4 flex justify-between">
       <label htmlFor="eyeColor">Eye Color</label>
