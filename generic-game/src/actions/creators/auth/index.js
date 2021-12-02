@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT } from '../../types/auth';
+import { AUTH_LOGIN, AUTH_LOGOUT, SET_USER, SET_USERS } from '../../types/auth';
 import { initializeGoogleAuth } from '../../../api/googleAuth';
 import {
   getUserProfile,
@@ -11,6 +11,7 @@ import {
   deleteUserProfile,
 } from '../../creators/profile';
 import { setNetworkError } from '../ui';
+import { readUser, readUsers } from '../../../api/users';
 
 export const login = (user) => {
   return async (dispatch) => {
@@ -92,5 +93,63 @@ export const requestDeleteUserProfile = (user) => {
       dispatch(setCreatureColors({}));
       dispatch(requestSignOut());
     });
+  };
+};
+
+// should be in users slice
+export const getUsers = (force = false) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const cached = state.users.cached;
+
+    if (cached === true && force === false) {
+      return;
+    }
+    try {
+      const users = await readUsers();
+      dispatch(setUsers(users));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// should be in users slice
+export const setUsers = (users) => {
+  return {
+    type: SET_USERS,
+    payload: users,
+  };
+};
+
+// should be in users slice
+export const getUser = (userId, force = false) => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const user = state.users.entities[userId];
+
+    if (user !== undefined && force === false) {
+      return;
+    }
+
+    try {
+      const stats = await readUser(userId);
+      dispatch(
+        setUser({
+          id: userId,
+          stats,
+        }),
+      );
+    } catch (response) {
+      console.log(response);
+    }
+  };
+};
+
+// should be in users slice
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
   };
 };

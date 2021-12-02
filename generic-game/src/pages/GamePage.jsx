@@ -1,3 +1,4 @@
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {patchGameWon, patchGameLost} from "../actions/creators/profile";
 import {Authorize} from "../components/auth/Authorize";
@@ -10,6 +11,20 @@ export const GamePage = () => {
   const { playing } = useSelector(({game}) => {
     return game;
   });
+
+  useEffect(() => {
+    console.log('dispatch changed');
+    return () => {
+      console.log('game ended');
+        dispatch(gameEnded());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    return () => {
+      console.log(playing);
+    }
+  }, [playing]);
 
   return <div className="p-4 container flex mx-auto">
     <Authorize roles={['admin', 'super-admin']} userIds={[1000, 2000]}>
