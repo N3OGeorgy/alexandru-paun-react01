@@ -13,16 +13,16 @@ export const GamePage = () => {
   });
 
   useEffect(() => {
-    console.log('dispatch changed');
+    // console.log('dispatch changed');
     return () => {
-      console.log('game ended');
+      // console.log('game ended');
         dispatch(gameEnded());
     }
   }, [dispatch]);
 
   useEffect(() => {
     return () => {
-      console.log(playing);
+      // console.log(playing);
     }
   }, [playing]);
 

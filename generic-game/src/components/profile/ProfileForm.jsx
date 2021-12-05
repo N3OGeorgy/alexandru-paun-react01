@@ -46,7 +46,7 @@ export const ProfileForm = () => {
   return <form onSubmit={onSubmit}>
     <div className="mb-4 flex justify-between">
       <label htmlFor="mainColor">Main Color</label>
-      <input type="color" name="mainColor" id="mainColor" defaultValue={mainColor} onChange={(event) => debouncedColorPickerChange(event)}/>
+      <input type="color" name="mainColor" id="mainColor" defaultValue={mainColor} onChange={debouncedColorPickerChange}/>
     </div>
     <div className="mb-4 flex justify-between">
       <label htmlFor="secondaryColor">Secondary Color</label>

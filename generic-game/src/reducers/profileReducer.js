@@ -11,7 +11,7 @@ const initialState = {
     gamesPlayed: 0,
   },
   creature: {
-    mainColor: '#ffffff',
+    mainColor: '#ff5533',
     secondaryColor: '#ff7bad',
     eyeColor: '#000000',
   },

@@ -135,6 +135,7 @@ export const getUser = (userId, force = false) => {
   return async (dispatch, getState) => {
     const state = getState();
     const user = state.users.entities[userId];
+    // const user = useUser(userId);
 
     if (user !== undefined && force === false) {
       return;
