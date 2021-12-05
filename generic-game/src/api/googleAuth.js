@@ -12,7 +12,7 @@ const authenticationChangeHandler = (isAuthenticated, googleUser) => {
   if (isAuthenticated) {
     const user = googleUser.getBasicProfile();
     store.dispatch(login(buildGoogleUserBasicProfile(user)));
-    console.log(googleUser);
+    // console.log(googleUser);
   } else {
     store.dispatch(logout());
   }

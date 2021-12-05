@@ -45,7 +45,7 @@ export const ProfilePage = () => {
                   <li className="border-b p-3"><AiOutlineUser></AiOutlineUser>{`${user.firstName} ${user.lastName}`}</li>
                   <li className="border-b p-3"><AiOutlineMail></AiOutlineMail>{`${user.email}`}</li>
                   <li className="border-b p-3">
-                    <Button skin="danger" className="text-xs m-1" onClick={forgetMyData}>Forget My Data</Button>
+                    <Button skin="danger" className="text-xs m-1" onClick={forgetMyData}>Forget My Stats Data</Button>
                     <Button skin="danger" className="text-xs m-1" onClick={deleteMyProfile}>Delete My Profile</Button>
                   </li>
                 </ul>

@@ -36,7 +36,6 @@ export const login = (user) => {
       if (httpStatus === 404) {
         try {
           await dispatch(postUserProfile(id));
-          await dispatch(postUserProfile(id));
         } catch (error) {
           dispatch(setNetworkError(error.message));
         }
@@ -79,20 +78,29 @@ export const requestSignOut = () => {
 export const requestDeleteUserStats = (user) => {
   return async (dispatch) => {
     const { id } = user;
-    await dispatch(deleteUserStats(id)).then(() => {
-      dispatch(requestSignOut());
-    });
+    try {
+      await dispatch(deleteUserStats(id)).then(() => {
+        dispatch(setUserStats({}));
+        dispatch(requestSignOut());
+      });
+    } catch (error) {
+      dispatch(setNetworkError(error.message));
+    }
   };
 };
 
 export const requestDeleteUserProfile = (user) => {
   return async (dispatch) => {
     const { id } = user;
-    await dispatch(deleteUserProfile(id)).then(() => {
+    try {
+      await dispatch(deleteUserStats(id));
+      await dispatch(deleteUserProfile(id));
       dispatch(setUserStats({}));
       dispatch(setCreatureColors({}));
       dispatch(requestSignOut());
-    });
+    } catch (error) {
+      dispatch(setNetworkError(error.message));
+    }
   };
 };
 

@@ -34,6 +34,14 @@ export const readUser = async (userId) => {
 export const deleteUser = async (userId) => {
   const endpoint = `/users/${userId}`;
 
+  // const delay = (time) => {
+  //   return new Promise((resolve) => setTimeout(resolve, time));
+  // };
+
+  // return await delay(3000).then(() => {
+  //   usersApi.delete(endpoint);
+  // });
+
   return await usersApi.delete(endpoint);
 };
 

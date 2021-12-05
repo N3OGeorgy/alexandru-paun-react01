@@ -20,6 +20,13 @@ const initialState = {
 export const profileReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case PROFILE_SET_STATS:
+      if (
+        Object.keys(payload).length === 0 &&
+        Object.getPrototypeOf(payload) === Object.prototype
+      ) {
+        payload = initialState.stats;
+      }
+
       return {
         ...state,
         stats: payload,
@@ -33,6 +40,13 @@ export const profileReducer = (state = initialState, { type, payload }) => {
         },
       };
     case PROFILE_SET_COLORS:
+      if (
+        Object.keys(payload).length === 0 &&
+        Object.getPrototypeOf(payload) === Object.prototype
+      ) {
+        payload = initialState.creature;
+      }
+
       return {
         ...state,
         creature: payload,
