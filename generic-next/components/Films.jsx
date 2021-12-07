@@ -3,15 +3,17 @@ export const Films = ({films}) => {
     return <></>;
   }
 
-  return <ul>
-    {
-      films.map(({title, director}) => {
-        return (
-        <li key={title}>
-          Name: {title}, Director: {director}
-        </li>
-        );
-      })
-    }
-  </ul>
+  return (
+    <ul>
+      {
+        films.map(({ title, director }) => {
+          return (
+          <li key={title}>
+            Name: {title}, Director: {director}
+          </li>
+          );
+        })
+      }
+    </ul>
+  );
 };
